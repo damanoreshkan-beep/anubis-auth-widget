@@ -258,6 +258,12 @@ export function AuthWidget({ supabaseUrl, supabaseKey, lang, launcherProtocol }:
                     onToggle={() => setMenuOpen(!menuOpen)}
                     onLogout={handleSignOut}
                     logoutLabel={t.logout}
+                    openLauncherLabel={t.welcomeOpenLauncher}
+                    launcherScheme={launcherScheme}
+                    onOpenLauncher={() => {
+                        setMenuOpen(false)
+                        window.location.href = `${launcherScheme}://signed-in?nick=${encodeURIComponent(nick)}`
+                    }}
                 />
             ) : (
                 <button
@@ -555,7 +561,12 @@ function Modal({ children, onClose }: { children: any; onClose: () => void }) {
 
 function ProfilePill({
     nick, open, onToggle, onLogout, logoutLabel,
-}: { nick: string; open: boolean; onToggle: () => void; onLogout: () => void; logoutLabel: string }) {
+    onOpenLauncher, openLauncherLabel, launcherScheme,
+}: {
+    nick: string; open: boolean;
+    onToggle: () => void; onLogout: () => void; logoutLabel: string;
+    onOpenLauncher: () => void; openLauncherLabel: string; launcherScheme: string;
+}) {
     const initial = nick[0].toUpperCase()
     return (
         <div class="relative inline-flex">
@@ -572,7 +583,18 @@ function ProfilePill({
                 </svg>
             </button>
             {open && (
-                <div class="absolute right-0 top-full mt-1 glass rounded-xl py-1 min-w-[140px] z-10">
+                <div class="absolute right-0 top-full mt-1 glass rounded-xl py-1 min-w-[180px] z-10">
+                    <a
+                        href={`${launcherScheme}://signed-in?nick=${encodeURIComponent(nick)}`}
+                        onClick={(e) => { e.preventDefault(); onOpenLauncher() }}
+                        class="w-full flex items-center gap-2 px-4 py-2 text-sm text-brand-300 hover:text-brand-200 hover:bg-brand-500/10 transition cursor-pointer"
+                    >
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14 3l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                        {openLauncherLabel}
+                    </a>
+                    <div class="my-1 mx-2 h-px bg-brand-500/15"></div>
                     <button
                         type="button"
                         onClick={onLogout}
