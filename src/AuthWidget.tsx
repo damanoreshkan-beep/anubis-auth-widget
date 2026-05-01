@@ -17,6 +17,8 @@ const COPY: Record<Locale, Record<string, string>> = {
         forgotSendCode: 'Send code', forgotCodeSent: 'Code sent to', forgotCodeLabel: '6-digit code',
         forgotVerify: 'Verify and sign in', forgotResend: 'Resend code', forgotBack: 'Back to sign in',
         forgotEmailFirst: 'Enter your email first', forgotInvalidCode: 'Code must be 6 digits',
+        forgotResetLink: 'Or send password reset link instead',
+        forgotResetSent: 'Reset link sent to your inbox',
         needNickname: 'No nickname on this account yet — set one below',
         nickFormatErr: 'Nick 3-16 chars: letters, digits, underscore', nickTakenErr: 'This nickname is already taken',
         orDivider: 'or', signInDiscord: 'Sign in with Discord',
@@ -24,6 +26,11 @@ const COPY: Record<Locale, Record<string, string>> = {
         setNickHint: 'This name will be shown in-game. It cannot be changed later.',
         setNickPlaceholder: 'Steve_99', setNickSubmit: 'Save',
         welcome: 'Welcome!', welcomeYourNick: 'Your nickname:', welcomeContinue: 'Continue',
+        resetTitle: 'Set a new password', resetHint: 'You\'re signed in via the recovery link. Choose a new password to use next time.',
+        newPasswordLabel: 'New password', confirmPasswordLabel: 'Confirm password',
+        resetSubmit: 'Update password',
+        passwordTooShort: 'Password must be at least 6 characters',
+        passwordMismatch: 'Passwords don\'t match',
     },
     ru: {
         login: 'Войти', logout: 'Выйти',
@@ -35,6 +42,8 @@ const COPY: Record<Locale, Record<string, string>> = {
         forgotSendCode: 'Отправить код', forgotCodeSent: 'Код отправлен на', forgotCodeLabel: '6-значный код',
         forgotVerify: 'Проверить и войти', forgotResend: 'Отправить код заново', forgotBack: 'Назад к входу',
         forgotEmailFirst: 'Сначала введите email', forgotInvalidCode: 'Код должен быть 6 цифр',
+        forgotResetLink: 'Или отправить ссылку для сброса пароля',
+        forgotResetSent: 'Ссылка для сброса отправлена',
         needNickname: 'У аккаунта ещё нет ника — выбери ниже',
         nickFormatErr: 'Ник 3-16 символов: латиница, цифры, _', nickTakenErr: 'Этот ник уже занят',
         orDivider: 'или', signInDiscord: 'Войти через Discord',
@@ -42,6 +51,11 @@ const COPY: Record<Locale, Record<string, string>> = {
         setNickHint: 'Этот ник будет отображаться в игре. Изменить позже нельзя.',
         setNickPlaceholder: 'Steve_99', setNickSubmit: 'Сохранить',
         welcome: 'Добро пожаловать!', welcomeYourNick: 'Твой ник:', welcomeContinue: 'Продолжить',
+        resetTitle: 'Установи новый пароль', resetHint: 'Ты вошёл по recovery-ссылке. Выбери новый пароль для входа в следующий раз.',
+        newPasswordLabel: 'Новый пароль', confirmPasswordLabel: 'Подтверди пароль',
+        resetSubmit: 'Обновить пароль',
+        passwordTooShort: 'Пароль должен быть минимум 6 символов',
+        passwordMismatch: 'Пароли не совпадают',
     },
     uk: {
         login: 'Увійти', logout: 'Вийти',
@@ -53,6 +67,8 @@ const COPY: Record<Locale, Record<string, string>> = {
         forgotSendCode: 'Надіслати код', forgotCodeSent: 'Код надіслано на', forgotCodeLabel: '6-значний код',
         forgotVerify: 'Перевірити та увійти', forgotResend: 'Надіслати код повторно', forgotBack: 'Назад до входу',
         forgotEmailFirst: 'Спочатку вкажи email', forgotInvalidCode: 'Код має містити 6 цифр',
+        forgotResetLink: 'Або надіслати посилання для скидання пароля',
+        forgotResetSent: 'Посилання для скидання надіслано',
         needNickname: 'У акаунта ще нема ніка — обери нижче',
         nickFormatErr: 'Нік 3-16 символів: латиниця, цифри, _', nickTakenErr: 'Цей нік вже зайнято',
         orDivider: 'або', signInDiscord: 'Увійти через Discord',
@@ -60,6 +76,11 @@ const COPY: Record<Locale, Record<string, string>> = {
         setNickHint: 'Цей нік буде відображатися у грі. Змінити пізніше не можна.',
         setNickPlaceholder: 'Steve_99', setNickSubmit: 'Зберегти',
         welcome: 'Ласкаво просимо!', welcomeYourNick: 'Твій нік:', welcomeContinue: 'Продовжити',
+        resetTitle: 'Встанови новий пароль', resetHint: 'Ти увійшов через recovery-посилання. Обери новий пароль для наступного входу.',
+        newPasswordLabel: 'Новий пароль', confirmPasswordLabel: 'Підтверди пароль',
+        resetSubmit: 'Оновити пароль',
+        passwordTooShort: 'Пароль має бути мінімум 6 символів',
+        passwordMismatch: 'Паролі не співпадають',
     },
     de: {
         login: 'Anmelden', logout: 'Abmelden',
@@ -71,6 +92,8 @@ const COPY: Record<Locale, Record<string, string>> = {
         forgotSendCode: 'Code senden', forgotCodeSent: 'Code gesendet an', forgotCodeLabel: '6-stelliger Code',
         forgotVerify: 'Bestätigen und anmelden', forgotResend: 'Code erneut senden', forgotBack: 'Zurück zur Anmeldung',
         forgotEmailFirst: 'Bitte zuerst E-Mail eingeben', forgotInvalidCode: 'Der Code muss 6 Ziffern enthalten',
+        forgotResetLink: 'Oder Link zum Zurücksetzen senden',
+        forgotResetSent: 'Reset-Link gesendet',
         needNickname: 'Dieses Konto hat noch keinen Nick — wähle unten einen',
         nickFormatErr: 'Nick 3-16 Zeichen: Buchstaben, Ziffern, _', nickTakenErr: 'Dieser Nickname ist bereits vergeben',
         orDivider: 'oder', signInDiscord: 'Mit Discord anmelden',
@@ -78,6 +101,11 @@ const COPY: Record<Locale, Record<string, string>> = {
         setNickHint: 'Dieser Name wird im Spiel angezeigt. Kann später nicht geändert werden.',
         setNickPlaceholder: 'Steve_99', setNickSubmit: 'Speichern',
         welcome: 'Willkommen!', welcomeYourNick: 'Dein Nickname:', welcomeContinue: 'Weiter',
+        resetTitle: 'Neues Passwort festlegen', resetHint: 'Du bist über den Recovery-Link angemeldet. Wähle ein neues Passwort für die nächste Anmeldung.',
+        newPasswordLabel: 'Neues Passwort', confirmPasswordLabel: 'Passwort bestätigen',
+        resetSubmit: 'Passwort aktualisieren',
+        passwordTooShort: 'Passwort muss mindestens 6 Zeichen haben',
+        passwordMismatch: 'Passwörter stimmen nicht überein',
     },
     pl: {
         login: 'Zaloguj', logout: 'Wyloguj',
@@ -89,6 +117,8 @@ const COPY: Record<Locale, Record<string, string>> = {
         forgotSendCode: 'Wyślij kod', forgotCodeSent: 'Kod wysłany na', forgotCodeLabel: 'Kod 6-cyfrowy',
         forgotVerify: 'Zweryfikuj i zaloguj', forgotResend: 'Wyślij kod ponownie', forgotBack: 'Wstecz',
         forgotEmailFirst: 'Najpierw wpisz email', forgotInvalidCode: 'Kod musi mieć 6 cyfr',
+        forgotResetLink: 'Lub wyślij link do resetu hasła',
+        forgotResetSent: 'Link do resetu został wysłany',
         needNickname: 'To konto nie ma jeszcze nicka — wybierz poniżej',
         nickFormatErr: 'Nick 3-16 znaków: litery, cyfry, _', nickTakenErr: 'Ten nick jest już zajęty',
         orDivider: 'lub', signInDiscord: 'Zaloguj przez Discord',
@@ -96,6 +126,11 @@ const COPY: Record<Locale, Record<string, string>> = {
         setNickHint: 'Ta nazwa będzie wyświetlana w grze. Nie można jej później zmienić.',
         setNickPlaceholder: 'Steve_99', setNickSubmit: 'Zapisz',
         welcome: 'Witaj!', welcomeYourNick: 'Twój nick:', welcomeContinue: 'Kontynuuj',
+        resetTitle: 'Ustaw nowe hasło', resetHint: 'Zalogowałeś się przez link recovery. Wybierz nowe hasło na następne logowanie.',
+        newPasswordLabel: 'Nowe hasło', confirmPasswordLabel: 'Potwierdź hasło',
+        resetSubmit: 'Aktualizuj hasło',
+        passwordTooShort: 'Hasło musi mieć co najmniej 6 znaków',
+        passwordMismatch: 'Hasła nie zgadzają się',
     },
 }
 
@@ -129,7 +164,7 @@ export function AuthWidget({ supabaseUrl, supabaseKey, lang }: Props) {
     const [nick, setNick] = useState<string | null>(null)
     const [loading, setLoading] = useState(true)
     const [open, setOpen] = useState(false)
-    const [view, setView] = useState<'auth' | 'setnick' | 'welcome'>('auth')
+    const [view, setView] = useState<'auth' | 'setnick' | 'welcome' | 'reset-password'>('auth')
     const [menuOpen, setMenuOpen] = useState(false)
 
     function emit(detail: { user: User | null; nick: string | null }) {
@@ -152,9 +187,19 @@ export function AuthWidget({ supabaseUrl, supabaseKey, lang }: Props) {
 
     useEffect(() => {
         if (!sb) { setLoading(false); return }
-        const { data: sub } = sb.auth.onAuthStateChange((_event, sess) => {
+        const { data: sub } = sb.auth.onAuthStateChange((event, sess) => {
             setSession(sess)
             setLoading(false)
+            // PASSWORD_RECOVERY fires when the user follows a recovery link
+            // from email — Supabase auto-parses the URL hash, sets a session
+            // in 'recovery' mode, and emits this event. We intercept it to
+            // surface the "set new password" form before treating them as
+            // signed in.
+            if (event === 'PASSWORD_RECOVERY') {
+                setView('reset-password')
+                setOpen(true)
+                return
+            }
             loadProfile(sess?.user ?? null)
         })
         return () => sub.subscription.unsubscribe()
@@ -220,6 +265,19 @@ export function AuthWidget({ supabaseUrl, supabaseKey, lang }: Props) {
                     )}
                     {view === 'welcome' && nick && (
                         <Welcome nick={nick} t={t} onContinue={() => setOpen(false)} />
+                    )}
+                    {view === 'reset-password' && (
+                        <ResetPasswordForm
+                            sb={sb}
+                            t={t}
+                            onDone={() => {
+                                // After password update — fall through to the
+                                // normal post-sign-in routing (set-nick if needed,
+                                // otherwise close the modal and show the profile pill).
+                                if (session?.user) loadProfile(session.user)
+                                else setOpen(false)
+                            }}
+                        />
                     )}
                 </Modal>
             )}
@@ -294,6 +352,24 @@ function AuthForm({ sb, t }: { sb: SupabaseClient; t: T }){
         try {
             const { error } = await sb.auth.verifyOtp({ email: foEmail.trim(), token: foOtp.trim(), type: 'email' })
             if(error) setFoError(error.message)
+        } finally { setFoBusy(false) }
+    }
+
+    // Alternative path: real password-reset email (Supabase resetPasswordForEmail).
+    // The link returns the user to this same URL with #access_token=&type=recovery,
+    // detectSessionInUrl picks it up, the PASSWORD_RECOVERY listener flips us into
+    // the reset-password form. Useful when the user can't read the OTP email but
+    // can still click a link.
+    async function onForgotResetLink(){
+        setFoError('')
+        if(!foEmail.trim()){ setFoError(t.forgotEmailFirst); return }
+        setFoBusy(true)
+        try {
+            const { error } = await sb.auth.resetPasswordForEmail(foEmail.trim(), {
+                redirectTo: typeof window !== 'undefined' ? window.location.href : undefined,
+            })
+            if(error){ setFoError(error.message); return }
+            setFoError(t.forgotResetSent)
         } finally { setFoBusy(false) }
     }
 
@@ -379,6 +455,14 @@ function AuthForm({ sb, t }: { sb: SupabaseClient; t: T }){
                         </div>
                     )}
                     <p class="text-xs text-rose-400 min-h-[1rem]">{foError}</p>
+                    <button
+                        type="button"
+                        onClick={onForgotResetLink}
+                        disabled={foBusy}
+                        class="block mx-auto text-xs text-brand-400 hover:text-brand-300 hover:underline disabled:opacity-50"
+                    >
+                        {t.forgotResetLink}
+                    </button>
                     <button type="button" onClick={()=>setPane('signin')} class="block mx-auto text-xs text-gray-400 hover:text-gray-200 hover:underline">{t.forgotBack}</button>
                 </div>
             )}
@@ -515,6 +599,80 @@ function SetNickForm({
                 class="btn-glow w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-700 hover:to-brand-600 text-white font-bold px-6 py-3 rounded-xl transition shadow-lg shadow-brand-600/30 disabled:opacity-50 disabled:pointer-events-none"
             >
                 {t.setNickSubmit}
+            </button>
+        </form>
+    )
+}
+
+function ResetPasswordForm({ sb, t, onDone }: { sb: SupabaseClient; t: T; onDone: () => void }) {
+    const [pwd1, setPwd1] = useState('')
+    const [pwd2, setPwd2] = useState('')
+    const [err, setErr] = useState('')
+    const [busy, setBusy] = useState(false)
+
+    async function submit(e: Event) {
+        e.preventDefault()
+        setErr('')
+        if (pwd1.length < 6) { setErr(t.passwordTooShort); return }
+        if (pwd1 !== pwd2) { setErr(t.passwordMismatch); return }
+        setBusy(true)
+        const { error } = await sb.auth.updateUser({ password: pwd1 })
+        setBusy(false)
+        if (error) { setErr(error.message); return }
+        // Strip the `#access_token=...&type=recovery` fragment Supabase left in
+        // the URL so a refresh doesn't re-trigger PASSWORD_RECOVERY.
+        if (typeof history !== 'undefined' && history.replaceState) {
+            history.replaceState(null, '', window.location.pathname + window.location.search)
+        }
+        onDone()
+    }
+
+    const inputCls = 'w-full px-4 py-3 bg-brand-500/10 border border-brand-500/30 rounded-xl text-white placeholder-gray-500 focus:border-brand-400 focus:bg-brand-500/15 focus:outline-none transition'
+
+    return (
+        <form onSubmit={submit} class="space-y-4">
+            <div class="flex items-center justify-center mb-2">
+                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-brand-500 to-violet-500 flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m0 4a9 9 0 110-18 9 9 0 010 18zM7.5 11V7a4.5 4.5 0 119 0v4" />
+                    </svg>
+                </div>
+            </div>
+            <h3 class="text-lg font-bold text-white text-center">{t.resetTitle}</h3>
+            <p class="text-xs text-gray-400 text-center leading-relaxed">{t.resetHint}</p>
+            <label class="block">
+                <span class="text-xs font-medium text-gray-400 mb-1.5 block">{t.newPasswordLabel}</span>
+                <input
+                    type="password"
+                    required
+                    minLength={6}
+                    autoComplete="new-password"
+                    value={pwd1}
+                    onInput={(e) => setPwd1((e.target as HTMLInputElement).value)}
+                    class={inputCls}
+                    placeholder="6+"
+                />
+            </label>
+            <label class="block">
+                <span class="text-xs font-medium text-gray-400 mb-1.5 block">{t.confirmPasswordLabel}</span>
+                <input
+                    type="password"
+                    required
+                    minLength={6}
+                    autoComplete="new-password"
+                    value={pwd2}
+                    onInput={(e) => setPwd2((e.target as HTMLInputElement).value)}
+                    class={inputCls}
+                    placeholder="6+"
+                />
+            </label>
+            <p class="text-xs text-rose-400 min-h-[1rem]">{err}</p>
+            <button
+                type="submit"
+                disabled={busy}
+                class="btn-glow w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-700 hover:to-brand-600 text-white font-bold px-6 py-3 rounded-xl transition shadow-lg shadow-brand-600/30 disabled:opacity-50 disabled:pointer-events-none"
+            >
+                {t.resetSubmit}
             </button>
         </form>
     )
