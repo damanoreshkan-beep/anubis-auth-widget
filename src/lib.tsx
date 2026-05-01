@@ -12,6 +12,22 @@ if (typeof document !== 'undefined' && !document.getElementById(STYLE_ID)) {
     document.head.appendChild(el)
 }
 
+// Defensive URL fix-up — a chain of `resetPasswordForEmail({ redirectTo:
+// window.location.href })` calls where the page already carried a hash
+// produces a recovery link with a trailing `#`. After Supabase appends its
+// own `#access_token=...` the browser ends up at `…/#…#access_token=…`
+// (or even just `…/##access_token=…`). supabase-js parses location.hash via
+// URLSearchParams which silently fails on the doubled `#` — PASSWORD_RECOVERY
+// never fires, the user lands on the homepage with their session in a hash
+// no one's looking at. Normalising the hash before createClient runs
+// detectSessionInUrl restores the flow.
+if (typeof window !== 'undefined' && window.location.hash.startsWith('##')) {
+    const fixed = '#' + window.location.hash.replace(/^#+/, '')
+    try {
+        window.history.replaceState(null, '', window.location.pathname + window.location.search + fixed)
+    } catch (_) { /* old browsers — non-fatal */ }
+}
+
 register(
     AuthWidget as any,
     'anubis-auth',

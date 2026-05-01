@@ -144,6 +144,14 @@ function copyFor(lang?: string){
     return code in COPY ? COPY[code] : COPY.en
 }
 
+// Drop the hash before handing the URL to Supabase — otherwise its appended
+// `#access_token=…` doubles up into `##access_token=…` and the redirect
+// returns the user to a URL the JS auth client can't parse.
+function cleanUrl(): string | undefined {
+    if (typeof window === 'undefined') return undefined
+    return window.location.origin + window.location.pathname + window.location.search
+}
+
 interface Props {
     supabaseUrl?: string
     supabaseKey?: string
@@ -379,12 +387,13 @@ function AuthForm({ sb, t }: { sb: SupabaseClient; t: T }){
                 email: foEmail.trim(),
                 options: {
                     shouldCreateUser: false,
-                    // Pin the magic-link redirect explicitly to wherever the
-                    // user opened the widget. Without this Supabase falls back
-                    // to its configured site_url, which can drift between
-                    // domains/paths and trip a 404 on GitHub Pages project
-                    // pages (`/minecraft/` is the right path, `/` is not).
-                    emailRedirectTo: typeof window !== 'undefined' ? window.location.href : undefined,
+                    // Pin the magic-link redirect to the current page WITHOUT
+                    // its hash. Including the hash ends with `…/#` going into
+                    // Supabase, and after it appends `#access_token=…` the
+                    // user lands at `…/##access_token=…` — supabase-js's
+                    // URLSearchParams parser then misses the keys and the
+                    // session is silently dropped.
+                    emailRedirectTo: cleanUrl(),
                 },
             })
             if(error){ setFoError(error.message); return }
@@ -412,7 +421,7 @@ function AuthForm({ sb, t }: { sb: SupabaseClient; t: T }){
         setFoBusy(true)
         try {
             const { error } = await sb.auth.resetPasswordForEmail(foEmail.trim(), {
-                redirectTo: typeof window !== 'undefined' ? window.location.href : undefined,
+                redirectTo: cleanUrl(),
             })
             if(error){ setFoError(error.message); return }
             setFoError(t.forgotResetSent)
@@ -422,8 +431,7 @@ function AuthForm({ sb, t }: { sb: SupabaseClient; t: T }){
     async function onDiscord(){
         setDiscordBusy(true)
         try {
-            const redirectTo = typeof window !== 'undefined' ? window.location.href : undefined
-            const { error } = await sb.auth.signInWithOAuth({ provider: 'discord', options: { redirectTo } })
+            const { error } = await sb.auth.signInWithOAuth({ provider: 'discord', options: { redirectTo: cleanUrl() } })
             if(error){ setDiscordBusy(false); alert(error.message) }
             // On success, browser navigates to Discord. After return, Supabase
             // detectSessionInUrl picks up the tokens and onAuthStateChange fires.
