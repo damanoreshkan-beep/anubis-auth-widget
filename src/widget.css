@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Light DOM — host site uses Tailwind too with the same palette; the styles
+ * below are only the widget-specific extensions (glass, btn-glow, modal).
+ * No global resets — those would leak to the host. */
+
+.glass {
+    background: rgba(139, 92, 246, 0.06);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(139, 92, 246, 0.18);
+}
+
+.btn-glow {
+    position: relative;
+    overflow: hidden;
+}
+.btn-glow::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.18), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.5s;
+    pointer-events: none;
+}
+.btn-glow:hover::after { transform: translateX(100%); }
+
+.gold-text {
+    color: transparent;
+    background: linear-gradient(135deg, #c084fc 0%, #a855f7 50%, #22d3ee 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+/* Auth modal backdrop + card */
+.aw-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(4, 3, 9, 0.7);
+    backdrop-filter: blur(8px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    animation: awFadeIn 0.15s ease-out;
+}
+.aw-modal-card {
+    animation: awSlideIn 0.2s ease-out;
+}
+@keyframes awFadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+@keyframes awSlideIn {
+    from { opacity: 0; transform: translateY(8px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
