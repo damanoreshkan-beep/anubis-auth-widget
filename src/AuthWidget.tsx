@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from 'preact/hooks'
+import { createPortal } from 'preact/compat'
 import { createClient, type Session, type SupabaseClient, type User } from '@supabase/supabase-js'
 
 type Locale = 'en' | 'ru' | 'uk' | 'de' | 'pl'
@@ -403,7 +404,12 @@ function Modal({ children, onClose }: { children: any; onClose: () => void }) {
     function onBackdrop(e: MouseEvent) {
         if (e.target === e.currentTarget) onClose()
     }
-    return (
+    if (typeof document === 'undefined') return null
+    // Portal to <body> so the modal escapes any ancestor that creates a new
+    // containing block (backdrop-filter, transform, will-change). Otherwise
+    // a `glass`-styled navbar traps the fixed-position backdrop and the
+    // modal flies up into the navbar instead of centering on the viewport.
+    return createPortal(
         <div class="aw-modal-backdrop" onClick={onBackdrop}>
             <div class="aw-modal-card glass rounded-2xl p-7 w-[min(440px,calc(100vw-2rem))] max-h-[90vh] overflow-y-auto relative">
                 <button
@@ -418,7 +424,8 @@ function Modal({ children, onClose }: { children: any; onClose: () => void }) {
                 </button>
                 {children}
             </div>
-        </div>
+        </div>,
+        document.body,
     )
 }
 
