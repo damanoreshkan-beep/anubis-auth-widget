@@ -346,8 +346,12 @@ export function AuthWidget({ supabaseUrl, supabaseKey, lang, launcherProtocol, m
         )
     )
 
+    // Wrap root in `.aw-scope` so all Tailwind utility classes — scoped to
+    // this ancestor by `important: '.aw-scope'` in tailwind.config.js —
+    // actually apply. Without the wrapper our compiled CSS would generate
+    // `.aw-scope .hidden { ... }` rules that match nothing.
     return (
-        <>
+        <div class="aw-scope">
             {triggerSurface}
 
             {open && (
@@ -399,7 +403,7 @@ export function AuthWidget({ supabaseUrl, supabaseKey, lang, launcherProtocol, m
                     )}
                 </Modal>
             )}
-        </>
+        </div>
     )
 }
 
@@ -715,20 +719,24 @@ function Modal({ children, onClose, embedded }: { children: any; onClose: () => 
     // containing block (backdrop-filter, transform, will-change). Otherwise
     // a `glass`-styled navbar traps the fixed-position backdrop and the
     // modal flies up into the navbar instead of centering on the viewport.
+    // Outer `.aw-scope` wrapper lets our scoped Tailwind utilities apply
+    // even though the portal lives outside <anubis-auth>.
     return createPortal(
-        <div class="aw-modal-backdrop" onClick={onBackdrop}>
-            <div class="aw-modal-card glass rounded-2xl p-7 w-[min(440px,calc(100vw-2rem))] max-h-[90vh] overflow-y-auto relative">
-                <button
-                    type="button"
-                    onClick={onClose}
-                    aria-label="close"
-                    class="absolute top-4 right-4 text-gray-400 hover:text-white transition w-8 h-8 flex items-center justify-center rounded-lg hover:bg-brand-500/15"
-                >
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-                {children}
+        <div class="aw-scope">
+            <div class="aw-modal-backdrop" onClick={onBackdrop}>
+                <div class="aw-modal-card glass rounded-2xl p-7 w-[min(440px,calc(100vw-2rem))] max-h-[90vh] overflow-y-auto relative">
+                    <button
+                        type="button"
+                        onClick={onClose}
+                        aria-label="close"
+                        class="absolute top-4 right-4 text-gray-400 hover:text-white transition w-8 h-8 flex items-center justify-center rounded-lg hover:bg-brand-500/15"
+                    >
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                    {children}
+                </div>
             </div>
         </div>,
         document.body,
