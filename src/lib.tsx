@@ -31,6 +31,6 @@ if (typeof window !== 'undefined' && window.location.hash.startsWith('##')) {
 register(
     AuthWidget as any,
     'anubis-auth',
-    ['supabase-url', 'supabase-key', 'lang', 'launcher-protocol'],
+    ['supabase-url', 'supabase-key', 'lang', 'launcher-protocol', 'mode'],
     { shadow: false },
 )
