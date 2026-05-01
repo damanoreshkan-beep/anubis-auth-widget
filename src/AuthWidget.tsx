@@ -369,7 +369,18 @@ function AuthForm({ sb, t }: { sb: SupabaseClient; t: T }){
         if(!foEmail.trim()){ setFoError(t.forgotEmailFirst); return }
         setFoBusy(true)
         try {
-            const { error } = await sb.auth.signInWithOtp({ email: foEmail.trim(), options: { shouldCreateUser: false } })
+            const { error } = await sb.auth.signInWithOtp({
+                email: foEmail.trim(),
+                options: {
+                    shouldCreateUser: false,
+                    // Pin the magic-link redirect explicitly to wherever the
+                    // user opened the widget. Without this Supabase falls back
+                    // to its configured site_url, which can drift between
+                    // domains/paths and trip a 404 on GitHub Pages project
+                    // pages (`/minecraft/` is the right path, `/` is not).
+                    emailRedirectTo: typeof window !== 'undefined' ? window.location.href : undefined,
+                },
+            })
             if(error){ setFoError(error.message); return }
             setFoCodeStep(true)
         } finally { setFoBusy(false) }
