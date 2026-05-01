@@ -13,10 +13,10 @@ const COPY: Record<Locale, Record<string, string>> = {
         emailLabel: 'Email', passwordLabel: 'Password', nicknameLabel: 'Minecraft nickname',
         signInSubmit: 'Sign in', signUpSubmit: 'Create account',
         forgotPassword: 'Forgot password?',
-        forgotIntro: 'Enter your email — we\'ll send a one-time 6-digit code to sign you in (no password needed).',
-        forgotSendCode: 'Send code', forgotCodeSent: 'Code sent to', forgotCodeLabel: '6-digit code',
+        forgotIntro: 'Enter your email — we\'ll send a one-time code to sign you in (no password needed).',
+        forgotSendCode: 'Send code', forgotCodeSent: 'Code sent to', forgotCodeLabel: 'One-time code',
         forgotVerify: 'Verify and sign in', forgotResend: 'Resend code', forgotBack: 'Back to sign in',
-        forgotEmailFirst: 'Enter your email first', forgotInvalidCode: 'Code must be 6 digits',
+        forgotEmailFirst: 'Enter your email first', forgotInvalidCode: 'Code must be 6-8 digits',
         forgotResetLink: 'Or send password reset link instead',
         forgotResetSent: 'Reset link sent to your inbox',
         needNickname: 'No nickname on this account yet — set one below',
@@ -39,10 +39,10 @@ const COPY: Record<Locale, Record<string, string>> = {
         emailLabel: 'Email', passwordLabel: 'Пароль', nicknameLabel: 'Никнейм в Minecraft',
         signInSubmit: 'Войти', signUpSubmit: 'Создать аккаунт',
         forgotPassword: 'Забыли пароль?',
-        forgotIntro: 'Введи свой email — мы отправим одноразовый 6-значный код для входа (пароль не нужен).',
-        forgotSendCode: 'Отправить код', forgotCodeSent: 'Код отправлен на', forgotCodeLabel: '6-значный код',
+        forgotIntro: 'Введи свой email — мы отправим одноразовый код для входа (пароль не нужен).',
+        forgotSendCode: 'Отправить код', forgotCodeSent: 'Код отправлен на', forgotCodeLabel: 'Одноразовый код',
         forgotVerify: 'Проверить и войти', forgotResend: 'Отправить код заново', forgotBack: 'Назад к входу',
-        forgotEmailFirst: 'Сначала введите email', forgotInvalidCode: 'Код должен быть 6 цифр',
+        forgotEmailFirst: 'Сначала введите email', forgotInvalidCode: 'Код должен быть 6-8 цифр',
         forgotResetLink: 'Или отправить ссылку для сброса пароля',
         forgotResetSent: 'Ссылка для сброса отправлена',
         needNickname: 'У аккаунта ещё нет ника — выбери ниже',
@@ -65,10 +65,10 @@ const COPY: Record<Locale, Record<string, string>> = {
         emailLabel: 'Email', passwordLabel: 'Пароль', nicknameLabel: 'Нікнейм у Minecraft',
         signInSubmit: 'Увійти', signUpSubmit: 'Створити акаунт',
         forgotPassword: 'Забули пароль?',
-        forgotIntro: 'Введи свій email — ми надішлемо одноразовий 6-значний код для входу (пароль не потрібен).',
-        forgotSendCode: 'Надіслати код', forgotCodeSent: 'Код надіслано на', forgotCodeLabel: '6-значний код',
+        forgotIntro: 'Введи свій email — ми надішлемо одноразовий код для входу (пароль не потрібен).',
+        forgotSendCode: 'Надіслати код', forgotCodeSent: 'Код надіслано на', forgotCodeLabel: 'Одноразовий код',
         forgotVerify: 'Перевірити та увійти', forgotResend: 'Надіслати код повторно', forgotBack: 'Назад до входу',
-        forgotEmailFirst: 'Спочатку вкажи email', forgotInvalidCode: 'Код має містити 6 цифр',
+        forgotEmailFirst: 'Спочатку вкажи email', forgotInvalidCode: 'Код має містити 6-8 цифр',
         forgotResetLink: 'Або надіслати посилання для скидання пароля',
         forgotResetSent: 'Посилання для скидання надіслано',
         needNickname: 'У акаунта ще нема ніка — обери нижче',
@@ -91,10 +91,10 @@ const COPY: Record<Locale, Record<string, string>> = {
         emailLabel: 'E-Mail', passwordLabel: 'Passwort', nicknameLabel: 'Minecraft-Nickname',
         signInSubmit: 'Anmelden', signUpSubmit: 'Konto erstellen',
         forgotPassword: 'Passwort vergessen?',
-        forgotIntro: 'Gib deine E-Mail ein — wir senden dir einen einmaligen 6-stelligen Code (kein Passwort nötig).',
-        forgotSendCode: 'Code senden', forgotCodeSent: 'Code gesendet an', forgotCodeLabel: '6-stelliger Code',
+        forgotIntro: 'Gib deine E-Mail ein — wir senden dir einen einmaligen Code (kein Passwort nötig).',
+        forgotSendCode: 'Code senden', forgotCodeSent: 'Code gesendet an', forgotCodeLabel: 'Einmal-Code',
         forgotVerify: 'Bestätigen und anmelden', forgotResend: 'Code erneut senden', forgotBack: 'Zurück zur Anmeldung',
-        forgotEmailFirst: 'Bitte zuerst E-Mail eingeben', forgotInvalidCode: 'Der Code muss 6 Ziffern enthalten',
+        forgotEmailFirst: 'Bitte zuerst E-Mail eingeben', forgotInvalidCode: 'Der Code muss 6-8 Ziffern enthalten',
         forgotResetLink: 'Oder Link zum Zurücksetzen senden',
         forgotResetSent: 'Reset-Link gesendet',
         needNickname: 'Dieses Konto hat noch keinen Nick — wähle unten einen',
@@ -117,10 +117,10 @@ const COPY: Record<Locale, Record<string, string>> = {
         emailLabel: 'Email', passwordLabel: 'Hasło', nicknameLabel: 'Nick w Minecraft',
         signInSubmit: 'Zaloguj', signUpSubmit: 'Utwórz konto',
         forgotPassword: 'Zapomniałeś hasła?',
-        forgotIntro: 'Wpisz swój email — wyślemy jednorazowy 6-cyfrowy kod (hasło nie jest potrzebne).',
-        forgotSendCode: 'Wyślij kod', forgotCodeSent: 'Kod wysłany na', forgotCodeLabel: 'Kod 6-cyfrowy',
+        forgotIntro: 'Wpisz swój email — wyślemy jednorazowy kod (hasło nie jest potrzebne).',
+        forgotSendCode: 'Wyślij kod', forgotCodeSent: 'Kod wysłany na', forgotCodeLabel: 'Kod jednorazowy',
         forgotVerify: 'Zweryfikuj i zaloguj', forgotResend: 'Wyślij kod ponownie', forgotBack: 'Wstecz',
-        forgotEmailFirst: 'Najpierw wpisz email', forgotInvalidCode: 'Kod musi mieć 6 cyfr',
+        forgotEmailFirst: 'Najpierw wpisz email', forgotInvalidCode: 'Kod musi mieć 6-8 cyfr',
         forgotResetLink: 'Lub wyślij link do resetu hasła',
         forgotResetSent: 'Link do resetu został wysłany',
         needNickname: 'To konto nie ma jeszcze nicka — wybierz poniżej',
@@ -387,7 +387,7 @@ function AuthForm({ sb, t }: { sb: SupabaseClient; t: T }){
     }
     async function onForgotVerify(){
         setFoError('')
-        if(!/^\d{6}$/.test(foOtp.trim())){ setFoError(t.forgotInvalidCode); return }
+        if(!/^\d{6,8}$/.test(foOtp.trim())){ setFoError(t.forgotInvalidCode); return }
         setFoBusy(true)
         try {
             const { error } = await sb.auth.verifyOtp({ email: foEmail.trim(), token: foOtp.trim(), type: 'email' })
@@ -488,7 +488,7 @@ function AuthForm({ sb, t }: { sb: SupabaseClient; t: T }){
                             <p class="text-xs text-gray-400 text-center">{t.forgotCodeSent} <strong class="text-brand-300 font-mono">{foEmail}</strong></p>
                             <label class="block">
                                 <span class="text-xs font-medium text-gray-400 mb-1.5 block">{t.forgotCodeLabel}</span>
-                                <input type="text" inputMode="numeric" autoComplete="one-time-code" maxLength={6} pattern="[0-9]{6}" value={foOtp} onInput={(e)=>setFoOtp((e.target as HTMLInputElement).value)} class={inputCls + ' text-center font-mono text-lg tracking-[0.4em]'} placeholder="123456" />
+                                <input type="text" inputMode="numeric" autoComplete="one-time-code" maxLength={8} pattern="[0-9]{6,8}" value={foOtp} onInput={(e)=>setFoOtp((e.target as HTMLInputElement).value)} class={inputCls + ' text-center font-mono text-lg tracking-[0.4em]'} placeholder="12345678" />
                             </label>
                             <button type="button" onClick={onForgotVerify} disabled={foBusy} class={primaryCls}>{t.forgotVerify}</button>
                             <button type="button" onClick={onForgotSend} class="block mx-auto text-xs text-brand-400 hover:text-brand-300">{t.forgotResend}</button>
