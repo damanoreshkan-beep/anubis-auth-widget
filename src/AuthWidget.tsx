@@ -26,6 +26,7 @@ const COPY: Record<Locale, Record<string, string>> = {
         setNickHint: 'This name will be shown in-game. It cannot be changed later.',
         setNickPlaceholder: 'Steve_99', setNickSubmit: 'Save',
         welcome: 'Welcome!', welcomeYourNick: 'Your nickname:', welcomeContinue: 'Continue',
+        welcomeOpenLauncher: 'Open launcher', welcomeOpenLauncherHint: 'Already installed? Jump straight to the game.',
         resetTitle: 'Set a new password', resetHint: 'You\'re signed in via the recovery link. Choose a new password to use next time.',
         newPasswordLabel: 'New password', confirmPasswordLabel: 'Confirm password',
         resetSubmit: 'Update password',
@@ -51,6 +52,7 @@ const COPY: Record<Locale, Record<string, string>> = {
         setNickHint: 'Этот ник будет отображаться в игре. Изменить позже нельзя.',
         setNickPlaceholder: 'Steve_99', setNickSubmit: 'Сохранить',
         welcome: 'Добро пожаловать!', welcomeYourNick: 'Твой ник:', welcomeContinue: 'Продолжить',
+        welcomeOpenLauncher: 'Открыть лаунчер', welcomeOpenLauncherHint: 'Уже установлен? Запусти и зайди в игру.',
         resetTitle: 'Установи новый пароль', resetHint: 'Ты вошёл по recovery-ссылке. Выбери новый пароль для входа в следующий раз.',
         newPasswordLabel: 'Новый пароль', confirmPasswordLabel: 'Подтверди пароль',
         resetSubmit: 'Обновить пароль',
@@ -76,6 +78,7 @@ const COPY: Record<Locale, Record<string, string>> = {
         setNickHint: 'Цей нік буде відображатися у грі. Змінити пізніше не можна.',
         setNickPlaceholder: 'Steve_99', setNickSubmit: 'Зберегти',
         welcome: 'Ласкаво просимо!', welcomeYourNick: 'Твій нік:', welcomeContinue: 'Продовжити',
+        welcomeOpenLauncher: 'Відкрити лаунчер', welcomeOpenLauncherHint: 'Вже встановлено? Запусти та заходь у гру.',
         resetTitle: 'Встанови новий пароль', resetHint: 'Ти увійшов через recovery-посилання. Обери новий пароль для наступного входу.',
         newPasswordLabel: 'Новий пароль', confirmPasswordLabel: 'Підтверди пароль',
         resetSubmit: 'Оновити пароль',
@@ -101,6 +104,7 @@ const COPY: Record<Locale, Record<string, string>> = {
         setNickHint: 'Dieser Name wird im Spiel angezeigt. Kann später nicht geändert werden.',
         setNickPlaceholder: 'Steve_99', setNickSubmit: 'Speichern',
         welcome: 'Willkommen!', welcomeYourNick: 'Dein Nickname:', welcomeContinue: 'Weiter',
+        welcomeOpenLauncher: 'Launcher öffnen', welcomeOpenLauncherHint: 'Schon installiert? Direkt ins Spiel springen.',
         resetTitle: 'Neues Passwort festlegen', resetHint: 'Du bist über den Recovery-Link angemeldet. Wähle ein neues Passwort für die nächste Anmeldung.',
         newPasswordLabel: 'Neues Passwort', confirmPasswordLabel: 'Passwort bestätigen',
         resetSubmit: 'Passwort aktualisieren',
@@ -126,6 +130,7 @@ const COPY: Record<Locale, Record<string, string>> = {
         setNickHint: 'Ta nazwa będzie wyświetlana w grze. Nie można jej później zmienić.',
         setNickPlaceholder: 'Steve_99', setNickSubmit: 'Zapisz',
         welcome: 'Witaj!', welcomeYourNick: 'Twój nick:', welcomeContinue: 'Kontynuuj',
+        welcomeOpenLauncher: 'Otwórz launcher', welcomeOpenLauncherHint: 'Już zainstalowany? Skacz prosto do gry.',
         resetTitle: 'Ustaw nowe hasło', resetHint: 'Zalogowałeś się przez link recovery. Wybierz nowe hasło na następne logowanie.',
         newPasswordLabel: 'Nowe hasło', confirmPasswordLabel: 'Potwierdź hasło',
         resetSubmit: 'Aktualizuj hasło',
@@ -143,14 +148,17 @@ interface Props {
     supabaseUrl?: string
     supabaseKey?: string
     lang?: string
+    /** Custom URL scheme registered by the desktop launcher (default: anubisworld). */
+    launcherProtocol?: string
 }
 
 const NICK_RE = /^[a-zA-Z0-9_]{3,16}$/
 
 type Pane = 'signin' | 'signup' | 'forgot'
 
-export function AuthWidget({ supabaseUrl, supabaseKey, lang }: Props) {
+export function AuthWidget({ supabaseUrl, supabaseKey, lang, launcherProtocol }: Props) {
     const t = copyFor(lang)
+    const launcherScheme = (launcherProtocol || 'anubisworld').replace(/[^a-z0-9-]/gi, '')
 
     const sbRef = useRef<SupabaseClient | null>(null)
     if (!sbRef.current && supabaseUrl && supabaseKey) {
@@ -166,17 +174,29 @@ export function AuthWidget({ supabaseUrl, supabaseKey, lang }: Props) {
     const [open, setOpen] = useState(false)
     const [view, setView] = useState<'auth' | 'setnick' | 'welcome' | 'reset-password'>('auth')
     const [menuOpen, setMenuOpen] = useState(false)
+    // Tracks whether the modal was OPEN at the moment a SIGNED_IN event
+    // fired — used to decide between "show Welcome" (fresh interactive
+    // sign-in) and "do nothing" (silent restore from localStorage on load).
+    const openRef = useRef(false)
+    useEffect(() => { openRef.current = open }, [open])
 
     function emit(detail: { user: User | null; nick: string | null }) {
         document.dispatchEvent(new CustomEvent('auth-changed', { detail, bubbles: true, composed: true }))
     }
 
-    async function loadProfile(user: User | null) {
+    async function loadProfile(user: User | null, opts: { freshSignIn?: boolean } = {}) {
         if (!sb || !user) { setNick(null); emit({ user: null, nick: null }); return }
         const { data } = await sb.from('profiles').select('minecraft_nick').eq('id', user.id).maybeSingle()
         if (data?.minecraft_nick) {
             setNick(data.minecraft_nick)
             emit({ user, nick: data.minecraft_nick })
+            // If the user just authed through the modal, hand them off to
+            // the Welcome pane so they can see the "Open launcher" button.
+            // Otherwise (silent session restore on page load) leave the
+            // current view alone.
+            if (opts.freshSignIn && openRef.current) {
+                setView('welcome')
+            }
         } else {
             setNick(null)
             setView('setnick')
@@ -200,7 +220,7 @@ export function AuthWidget({ supabaseUrl, supabaseKey, lang }: Props) {
                 setOpen(true)
                 return
             }
-            loadProfile(sess?.user ?? null)
+            loadProfile(sess?.user ?? null, { freshSignIn: event === 'SIGNED_IN' })
         })
         return () => sub.subscription.unsubscribe()
     }, [sb])
@@ -264,18 +284,27 @@ export function AuthWidget({ supabaseUrl, supabaseKey, lang }: Props) {
                         />
                     )}
                     {view === 'welcome' && nick && (
-                        <Welcome nick={nick} t={t} onContinue={() => setOpen(false)} />
+                        <Welcome nick={nick} t={t} launcherScheme={launcherScheme} onContinue={() => setOpen(false)} />
                     )}
                     {view === 'reset-password' && (
                         <ResetPasswordForm
                             sb={sb}
                             t={t}
-                            onDone={() => {
-                                // After password update — fall through to the
-                                // normal post-sign-in routing (set-nick if needed,
-                                // otherwise close the modal and show the profile pill).
-                                if (session?.user) loadProfile(session.user)
-                                else setOpen(false)
+                            onDone={async () => {
+                                // After password update we want to land on the
+                                // Welcome pane (with the Open Launcher button)
+                                // — but only once we know the nickname. If
+                                // the recovered account already has one, hop
+                                // straight to welcome; otherwise drop into
+                                // setnick first so the user picks one.
+                                if (!session?.user) { setOpen(false); return }
+                                const { data } = await sb.from('profiles').select('minecraft_nick').eq('id', session.user.id).maybeSingle()
+                                if (data?.minecraft_nick) {
+                                    setNick(data.minecraft_nick)
+                                    setView('welcome')
+                                } else {
+                                    setView('setnick')
+                                }
                             }}
                         />
                     )}
@@ -678,7 +707,15 @@ function ResetPasswordForm({ sb, t, onDone }: { sb: SupabaseClient; t: T; onDone
     )
 }
 
-function Welcome({ nick, t, onContinue }: { nick: string; t: T; onContinue: () => void }) {
+function Welcome({ nick, t, launcherScheme, onContinue }: { nick: string; t: T; launcherScheme: string; onContinue: () => void }) {
+    function openLauncher(){
+        // Triggers the OS's protocol handler. If the launcher is installed
+        // it pops to focus; if not, the browser silently does nothing — no
+        // error UI for us to handle. Add `?nick=` so the launcher could
+        // route to a specific screen (login already auto-restores from
+        // localStorage, so this is informational for now).
+        window.location.href = `${launcherScheme}://signed-in?nick=${encodeURIComponent(nick)}`
+    }
     return (
         <div class="space-y-4 text-center">
             <div class="w-16 h-16 mx-auto rounded-full flex items-center justify-center"
@@ -694,8 +731,17 @@ function Welcome({ nick, t, onContinue }: { nick: string; t: T; onContinue: () =
             </p>
             <button
                 type="button"
-                onClick={onContinue}
+                onClick={openLauncher}
                 class="btn-glow w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-700 hover:to-brand-600 text-white font-bold px-6 py-3 rounded-xl transition shadow-lg shadow-brand-600/30"
+            >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 3l7 7m0 0l-7 7m7-7H3" /></svg>
+                <span>{t.welcomeOpenLauncher}</span>
+            </button>
+            <p class="text-[10px] text-gray-500">{t.welcomeOpenLauncherHint}</p>
+            <button
+                type="button"
+                onClick={onContinue}
+                class="text-xs text-gray-400 hover:text-gray-200 hover:underline"
             >
                 {t.welcomeContinue}
             </button>

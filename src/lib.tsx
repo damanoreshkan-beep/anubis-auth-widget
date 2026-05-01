@@ -15,6 +15,6 @@ if (typeof document !== 'undefined' && !document.getElementById(STYLE_ID)) {
 register(
     AuthWidget as any,
     'anubis-auth',
-    ['supabase-url', 'supabase-key', 'lang'],
+    ['supabase-url', 'supabase-key', 'lang', 'launcher-protocol'],
     { shadow: false },
 )
