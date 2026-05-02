@@ -17,12 +17,21 @@ const COPY: Record<Locale, Record<string, string>> = {
         emailLabel: 'Email', passwordLabel: 'Password', nicknameLabel: 'Minecraft nickname',
         signInSubmit: 'Sign in', signUpSubmit: 'Create account',
         forgotPassword: 'Forgot password?',
-        forgotIntro: 'Enter your email — we\'ll send a one-time code to sign you in (no password needed).',
+        forgotChoiceTitle: 'How would you like to recover access?',
+        forgotChoiceOtpTitle: 'Sign in without password',
+        forgotChoiceOtpHint: 'We email an 8-digit code. Enter it to sign in once — your existing password stays.',
+        forgotChoiceResetTitle: 'Set a new password',
+        forgotChoiceResetHint: 'We email a link. Click it to choose a new password — no code needed.',
+        forgotOtpIntro: 'Enter your email — we\'ll send a one-time code to sign you in.',
+        forgotResetIntro: 'Enter your email — we\'ll send a link to set a new password.',
         forgotSendCode: 'Send code', forgotCodeSent: 'Code sent to', forgotCodeLabel: 'One-time code',
         forgotVerify: 'Verify and sign in', forgotResend: 'Resend code', forgotBack: 'Back to sign in',
         forgotEmailFirst: 'Enter your email first', forgotInvalidCode: 'Code must be 6-8 digits',
-        forgotResetLink: 'Or send password reset link instead',
-        forgotResetSent: 'Reset link sent to your inbox',
+        forgotSendResetLink: 'Send reset link',
+        forgotResetSent: 'Reset link sent to',
+        forgotResetSentBody: 'Open the email and click the button to set a new password.',
+        forgotResetSentLauncherBody: 'Open the email in your browser, set a new password, then return here and sign in.',
+        forgotResetDone: 'Done',
         needNickname: 'No nickname on this account yet — set one below',
         nickFormatErr: 'Nick 3-16 chars: letters, digits, underscore', nickTakenErr: 'This nickname is already taken',
         orDivider: 'or', signInDiscord: 'Sign in with Discord',
@@ -47,12 +56,21 @@ const COPY: Record<Locale, Record<string, string>> = {
         emailLabel: 'Email', passwordLabel: 'Пароль', nicknameLabel: 'Никнейм в Minecraft',
         signInSubmit: 'Войти', signUpSubmit: 'Создать аккаунт',
         forgotPassword: 'Забыли пароль?',
-        forgotIntro: 'Введи свой email — мы отправим одноразовый код для входа (пароль не нужен).',
+        forgotChoiceTitle: 'Как восстановить доступ?',
+        forgotChoiceOtpTitle: 'Войти без пароля',
+        forgotChoiceOtpHint: 'Пришлём 8-значный код на email. Введи его и войдёшь — пароль останется прежний.',
+        forgotChoiceResetTitle: 'Установить новый пароль',
+        forgotChoiceResetHint: 'Пришлём ссылку. Кликнешь — выберешь новый пароль (код не нужен).',
+        forgotOtpIntro: 'Введи свой email — мы отправим одноразовый код для входа.',
+        forgotResetIntro: 'Введи email — пришлём ссылку для установки нового пароля.',
         forgotSendCode: 'Отправить код', forgotCodeSent: 'Код отправлен на', forgotCodeLabel: 'Одноразовый код',
         forgotVerify: 'Проверить и войти', forgotResend: 'Отправить код заново', forgotBack: 'Назад к входу',
         forgotEmailFirst: 'Сначала введите email', forgotInvalidCode: 'Код должен быть 6-8 цифр',
-        forgotResetLink: 'Или отправить ссылку для сброса пароля',
-        forgotResetSent: 'Ссылка для сброса отправлена',
+        forgotSendResetLink: 'Отправить ссылку',
+        forgotResetSent: 'Ссылка отправлена на',
+        forgotResetSentBody: 'Открой письмо и нажми на кнопку — выберешь новый пароль.',
+        forgotResetSentLauncherBody: 'Открой письмо в браузере, установи новый пароль, потом вернись сюда и войди.',
+        forgotResetDone: 'Готово',
         needNickname: 'У аккаунта ещё нет ника — выбери ниже',
         nickFormatErr: 'Ник 3-16 символов: латиница, цифры, _', nickTakenErr: 'Этот ник уже занят',
         orDivider: 'или', signInDiscord: 'Войти через Discord',
@@ -77,12 +95,21 @@ const COPY: Record<Locale, Record<string, string>> = {
         emailLabel: 'Email', passwordLabel: 'Пароль', nicknameLabel: 'Нікнейм у Minecraft',
         signInSubmit: 'Увійти', signUpSubmit: 'Створити акаунт',
         forgotPassword: 'Забули пароль?',
-        forgotIntro: 'Введи свій email — ми надішлемо одноразовий код для входу (пароль не потрібен).',
+        forgotChoiceTitle: 'Як відновити доступ?',
+        forgotChoiceOtpTitle: 'Увійти без паролю',
+        forgotChoiceOtpHint: 'Надішлемо 8-значний код на email. Введи його — увійдеш, пароль залишиться старий.',
+        forgotChoiceResetTitle: 'Встановити новий пароль',
+        forgotChoiceResetHint: 'Надішлемо посилання. Клікнеш — обереш новий пароль (код не потрібен).',
+        forgotOtpIntro: 'Введи свій email — надішлемо одноразовий код для входу.',
+        forgotResetIntro: 'Введи email — надішлемо посилання для встановлення нового пароля.',
         forgotSendCode: 'Надіслати код', forgotCodeSent: 'Код надіслано на', forgotCodeLabel: 'Одноразовий код',
         forgotVerify: 'Перевірити та увійти', forgotResend: 'Надіслати код повторно', forgotBack: 'Назад до входу',
         forgotEmailFirst: 'Спочатку вкажи email', forgotInvalidCode: 'Код має містити 6-8 цифр',
-        forgotResetLink: 'Або надіслати посилання для скидання пароля',
-        forgotResetSent: 'Посилання для скидання надіслано',
+        forgotSendResetLink: 'Надіслати посилання',
+        forgotResetSent: 'Посилання надіслано на',
+        forgotResetSentBody: 'Відкрий лист і натисни кнопку — обереш новий пароль.',
+        forgotResetSentLauncherBody: 'Відкрий лист у браузері, встанови новий пароль, потім повернись сюди й увійди.',
+        forgotResetDone: 'Готово',
         needNickname: 'У акаунта ще нема ніка — обери нижче',
         nickFormatErr: 'Нік 3-16 символів: латиниця, цифри, _', nickTakenErr: 'Цей нік вже зайнято',
         orDivider: 'або', signInDiscord: 'Увійти через Discord',
@@ -107,12 +134,21 @@ const COPY: Record<Locale, Record<string, string>> = {
         emailLabel: 'E-Mail', passwordLabel: 'Passwort', nicknameLabel: 'Minecraft-Nickname',
         signInSubmit: 'Anmelden', signUpSubmit: 'Konto erstellen',
         forgotPassword: 'Passwort vergessen?',
-        forgotIntro: 'Gib deine E-Mail ein — wir senden dir einen einmaligen Code (kein Passwort nötig).',
+        forgotChoiceTitle: 'Wie möchtest du den Zugang wiederherstellen?',
+        forgotChoiceOtpTitle: 'Ohne Passwort anmelden',
+        forgotChoiceOtpHint: 'Wir senden einen 8-stelligen Code per E-Mail. Gib ihn ein, um dich anzumelden — dein Passwort bleibt unverändert.',
+        forgotChoiceResetTitle: 'Neues Passwort festlegen',
+        forgotChoiceResetHint: 'Wir senden einen Link. Klicke ihn an, um ein neues Passwort zu wählen — kein Code nötig.',
+        forgotOtpIntro: 'Gib deine E-Mail ein — wir senden dir einen Einmal-Code zur Anmeldung.',
+        forgotResetIntro: 'Gib deine E-Mail ein — wir senden dir einen Link zum Festlegen eines neuen Passworts.',
         forgotSendCode: 'Code senden', forgotCodeSent: 'Code gesendet an', forgotCodeLabel: 'Einmal-Code',
         forgotVerify: 'Bestätigen und anmelden', forgotResend: 'Code erneut senden', forgotBack: 'Zurück zur Anmeldung',
         forgotEmailFirst: 'Bitte zuerst E-Mail eingeben', forgotInvalidCode: 'Der Code muss 6-8 Ziffern enthalten',
-        forgotResetLink: 'Oder Link zum Zurücksetzen senden',
-        forgotResetSent: 'Reset-Link gesendet',
+        forgotSendResetLink: 'Link senden',
+        forgotResetSent: 'Link gesendet an',
+        forgotResetSentBody: 'Öffne die E-Mail und klicke auf den Button, um ein neues Passwort zu wählen.',
+        forgotResetSentLauncherBody: 'Öffne die E-Mail im Browser, lege ein neues Passwort fest und kehre dann hierher zurück, um dich anzumelden.',
+        forgotResetDone: 'Fertig',
         needNickname: 'Dieses Konto hat noch keinen Nick — wähle unten einen',
         nickFormatErr: 'Nick 3-16 Zeichen: Buchstaben, Ziffern, _', nickTakenErr: 'Dieser Nickname ist bereits vergeben',
         orDivider: 'oder', signInDiscord: 'Mit Discord anmelden',
@@ -137,12 +173,21 @@ const COPY: Record<Locale, Record<string, string>> = {
         emailLabel: 'Email', passwordLabel: 'Hasło', nicknameLabel: 'Nick w Minecraft',
         signInSubmit: 'Zaloguj', signUpSubmit: 'Utwórz konto',
         forgotPassword: 'Zapomniałeś hasła?',
-        forgotIntro: 'Wpisz swój email — wyślemy jednorazowy kod (hasło nie jest potrzebne).',
+        forgotChoiceTitle: 'Jak chcesz odzyskać dostęp?',
+        forgotChoiceOtpTitle: 'Zaloguj bez hasła',
+        forgotChoiceOtpHint: 'Wyślemy 8-cyfrowy kod na email. Wpisz go, aby się zalogować — hasło pozostanie bez zmian.',
+        forgotChoiceResetTitle: 'Ustaw nowe hasło',
+        forgotChoiceResetHint: 'Wyślemy link. Kliknij go, aby ustawić nowe hasło (kod niepotrzebny).',
+        forgotOtpIntro: 'Wpisz email — wyślemy jednorazowy kod do zalogowania.',
+        forgotResetIntro: 'Wpisz email — wyślemy link do ustawienia nowego hasła.',
         forgotSendCode: 'Wyślij kod', forgotCodeSent: 'Kod wysłany na', forgotCodeLabel: 'Kod jednorazowy',
         forgotVerify: 'Zweryfikuj i zaloguj', forgotResend: 'Wyślij kod ponownie', forgotBack: 'Wstecz',
         forgotEmailFirst: 'Najpierw wpisz email', forgotInvalidCode: 'Kod musi mieć 6-8 cyfr',
-        forgotResetLink: 'Lub wyślij link do resetu hasła',
-        forgotResetSent: 'Link do resetu został wysłany',
+        forgotSendResetLink: 'Wyślij link',
+        forgotResetSent: 'Link wysłany na',
+        forgotResetSentBody: 'Otwórz email i kliknij przycisk, aby wybrać nowe hasło.',
+        forgotResetSentLauncherBody: 'Otwórz email w przeglądarce, ustaw nowe hasło, potem wróć tutaj i zaloguj się.',
+        forgotResetDone: 'Gotowe',
         needNickname: 'To konto nie ma jeszcze nicka — wybierz poniżej',
         nickFormatErr: 'Nick 3-16 znaków: litery, cyfry, _', nickTakenErr: 'Ten nick jest już zajęty',
         orDivider: 'lub', signInDiscord: 'Zaloguj przez Discord',
@@ -190,7 +235,11 @@ interface Props {
 
 const NICK_RE = /^[a-zA-Z0-9_]{3,16}$/
 
-type Stage = 'start' | 'email' | 'forgot'
+// `forgot-choice` is the fork screen with two cards (login-via-OTP vs
+// reset-password). The two `forgot-*` substages are the linear flows behind
+// each card. Splitting them in state lets each one keep its own validation
+// errors, busy flags, and "code/link sent" success copy without mixing.
+type Stage = 'start' | 'email' | 'forgot-choice' | 'forgot-otp' | 'forgot-reset'
 
 export function AuthWidget({ supabaseUrl, supabaseKey, lang, launcherProtocol, mode }: Props) {
     const t = copyFor(lang)
@@ -424,12 +473,18 @@ function AuthForm({ sb, t, inLauncher, supabaseUrl }: { sb: SupabaseClient; t: T
     const [suError, setSuError] = useState('')
     const [suBusy, setSuBusy] = useState(false)
 
-    // Forgot OTP
+    // Forgot — passwordless OTP (sign in once via 8-digit code, password unchanged)
     const [foEmail, setFoEmail] = useState('')
     const [foCodeStep, setFoCodeStep] = useState(false)
     const [foOtp, setFoOtp] = useState('')
     const [foError, setFoError] = useState('')
     const [foBusy, setFoBusy] = useState(false)
+
+    // Forgot — password reset (set a new password via emailed magic link)
+    const [frEmail, setFrEmail] = useState('')
+    const [frSent, setFrSent] = useState(false)
+    const [frError, setFrError] = useState('')
+    const [frBusy, setFrBusy] = useState(false)
 
     // Discord
     const [discordBusy, setDiscordBusy] = useState(false)
@@ -490,22 +545,24 @@ function AuthForm({ sb, t, inLauncher, supabaseUrl }: { sb: SupabaseClient; t: T
         } finally { setFoBusy(false) }
     }
 
-    // Alternative path: real password-reset email (Supabase resetPasswordForEmail).
-    // The link returns the user to this same URL with #access_token=&type=recovery,
-    // detectSessionInUrl picks it up, the PASSWORD_RECOVERY listener flips us into
-    // the reset-password form. Useful when the user can't read the OTP email but
-    // can still click a link.
-    async function onForgotResetLink(){
-        setFoError('')
-        if(!foEmail.trim()){ setFoError(t.forgotEmailFirst); return }
-        setFoBusy(true)
+    // Path B (`forgot-reset`): real password-reset email — Supabase emails a
+    // magic link that returns the user to redirectTo with #access_token=&type=recovery.
+    // detectSessionInUrl parses the hash and our PASSWORD_RECOVERY listener
+    // flips into ResetPasswordForm where the user picks a new password.
+    // In launcher mode, the link opens in the user's default browser (the
+    // redirect lands on the website host); the user sets a new password
+    // there and then returns to the launcher to sign in normally.
+    async function onForgotResetSend(){
+        setFrError('')
+        if(!frEmail.trim()){ setFrError(t.forgotEmailFirst); return }
+        setFrBusy(true)
         try {
-            const { error } = await sb.auth.resetPasswordForEmail(foEmail.trim(), {
+            const { error } = await sb.auth.resetPasswordForEmail(frEmail.trim(), {
                 redirectTo: cleanUrl(),
             })
-            if(error){ setFoError(error.message); return }
-            setFoError(t.forgotResetSent)
-        } finally { setFoBusy(false) }
+            if(error){ setFrError(error.message); return }
+            setFrSent(true)
+        } finally { setFrBusy(false) }
     }
 
     async function onDiscord(){
@@ -616,11 +673,48 @@ function AuthForm({ sb, t, inLauncher, supabaseUrl }: { sb: SupabaseClient; t: T
         )
     }
 
-    if (stage === 'forgot') {
+    if (stage === 'forgot-choice') {
+        // Fork screen — two semantically distinct flows users were confusing
+        // when stacked on one screen. Each card explains the trade-off so
+        // the user picks the right path before typing email.
+        const cardCls = 'group w-full text-left p-4 rounded-2xl border border-brand-500/25 bg-brand-500/5 hover:bg-brand-500/12 hover:border-brand-400/55 transition flex items-start gap-3'
+        return (
+            <div class="space-y-4">
+                <BackBtn onClick={() => setStage('email')} />
+                <h3 class="text-base font-bold text-white text-center">{t.forgotChoiceTitle}</h3>
+
+                <button type="button" onClick={() => { setFoEmail(siEmail); setFoCodeStep(false); setFoOtp(''); setFoError(''); setStage('forgot-otp') }} class={cardCls}>
+                    <div class="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style="background:linear-gradient(135deg,#7c3aed,#a855f7)">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                    </div>
+                    <div class="space-y-0.5 min-w-0">
+                        <div class="text-sm font-bold text-white group-hover:text-brand-200">{t.forgotChoiceOtpTitle}</div>
+                        <div class="text-[11px] text-gray-400 leading-snug">{t.forgotChoiceOtpHint}</div>
+                    </div>
+                </button>
+
+                <button type="button" onClick={() => { setFrEmail(siEmail); setFrSent(false); setFrError(''); setStage('forgot-reset') }} class={cardCls}>
+                    <div class="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style="background:linear-gradient(135deg,#22d3ee,#a855f7)">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m0 4a9 9 0 110-18 9 9 0 010 18zM7.5 11V7a4.5 4.5 0 119 0v4" />
+                        </svg>
+                    </div>
+                    <div class="space-y-0.5 min-w-0">
+                        <div class="text-sm font-bold text-white group-hover:text-brand-200">{t.forgotChoiceResetTitle}</div>
+                        <div class="text-[11px] text-gray-400 leading-snug">{t.forgotChoiceResetHint}</div>
+                    </div>
+                </button>
+            </div>
+        )
+    }
+
+    if (stage === 'forgot-otp') {
         return (
             <div class="space-y-3">
-                <BackBtn onClick={() => setStage('email')} />
-                <p class="text-xs text-gray-400 text-center leading-relaxed">{t.forgotIntro}</p>
+                <BackBtn onClick={() => setStage('forgot-choice')} />
+                <p class="text-xs text-gray-400 text-center leading-relaxed">{t.forgotOtpIntro}</p>
                 <label class="block">
                     <span class="text-xs font-medium text-gray-400 mb-1.5 block">{t.emailLabel}</span>
                     <input type="email" required disabled={foCodeStep} value={foEmail} onInput={(e)=>setFoEmail((e.target as HTMLInputElement).value)} class={inputCls} placeholder="you@example.com" />
@@ -639,14 +733,40 @@ function AuthForm({ sb, t, inLauncher, supabaseUrl }: { sb: SupabaseClient; t: T
                     </div>
                 )}
                 <p class="text-xs text-rose-400 min-h-[1rem]">{foError}</p>
-                <button
-                    type="button"
-                    onClick={onForgotResetLink}
-                    disabled={foBusy}
-                    class="block mx-auto text-xs text-brand-400 hover:text-brand-300 hover:underline disabled:opacity-50"
-                >
-                    {t.forgotResetLink}
-                </button>
+            </div>
+        )
+    }
+
+    if (stage === 'forgot-reset') {
+        return (
+            <div class="space-y-3">
+                <BackBtn onClick={() => setStage('forgot-choice')} />
+                {!frSent ? (
+                    <>
+                        <p class="text-xs text-gray-400 text-center leading-relaxed">{t.forgotResetIntro}</p>
+                        <label class="block">
+                            <span class="text-xs font-medium text-gray-400 mb-1.5 block">{t.emailLabel}</span>
+                            <input type="email" required value={frEmail} onInput={(e)=>setFrEmail((e.target as HTMLInputElement).value)} class={inputCls} placeholder="you@example.com" />
+                        </label>
+                        <button type="button" onClick={onForgotResetSend} disabled={frBusy} class={primaryCls}>{t.forgotSendResetLink}</button>
+                        <p class="text-xs text-rose-400 min-h-[1rem]">{frError}</p>
+                    </>
+                ) : (
+                    <div class="space-y-3 text-center py-2">
+                        <div class="w-12 h-12 mx-auto rounded-full flex items-center justify-center" style="background:linear-gradient(135deg,#22d3ee,#a855f7)">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                            </svg>
+                        </div>
+                        <p class="text-sm text-white">
+                            {t.forgotResetSent} <strong class="text-brand-300 font-mono">{frEmail}</strong>
+                        </p>
+                        <p class="text-xs text-gray-400 leading-relaxed px-2">
+                            {inLauncher ? t.forgotResetSentLauncherBody : t.forgotResetSentBody}
+                        </p>
+                        <button type="button" onClick={() => setStage('email')} class={primaryCls}>{t.forgotResetDone}</button>
+                    </div>
+                )}
             </div>
         )
     }
@@ -673,7 +793,7 @@ function AuthForm({ sb, t, inLauncher, supabaseUrl }: { sb: SupabaseClient; t: T
                     </label>
                     <p class="text-xs text-rose-400 min-h-[1rem]">{siError}</p>
                     <button type="submit" disabled={siBusy} class={primaryCls}>{t.signInSubmit}</button>
-                    <button type="button" onClick={()=>{ setFoEmail(siEmail); setFoCodeStep(false); setFoOtp(''); setFoError(''); setStage('forgot') }} class="block mx-auto text-xs text-brand-400 hover:text-brand-300 hover:underline">{t.forgotPassword}</button>
+                    <button type="button" onClick={()=>setStage('forgot-choice')} class="block mx-auto text-xs text-brand-400 hover:text-brand-300 hover:underline">{t.forgotPassword}</button>
                 </form>
             )}
 
