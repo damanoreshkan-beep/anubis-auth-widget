@@ -299,6 +299,12 @@ export function AuthWidget({ supabaseUrl, supabaseKey, lang, launcherProtocol, m
     // sign-in) and "do nothing" (silent restore from localStorage on load).
     const openRef = useRef(false)
     useEffect(() => { openRef.current = open }, [open])
+    // Nick chosen during sign-up. signUp() with autoconfirm signs the user
+    // in immediately, firing SIGNED_IN → loadProfile BEFORE the profiles
+    // upsert commits — without this the widget would wrongly show the
+    // "set nickname" screen for a user who already picked one. loadProfile
+    // trusts this ref instead of showing setnick.
+    const pendingSignupNickRef = useRef<string | null>(null)
 
     function emit(detail: { user: User | null; nick: string | null }) {
         document.dispatchEvent(new CustomEvent('auth-changed', { detail, bubbles: true, composed: true }))
@@ -330,6 +336,7 @@ export function AuthWidget({ supabaseUrl, supabaseKey, lang, launcherProtocol, m
         if (!sb || !user) { setNick(null); emit({ user: null, nick: null }); return }
         const { data } = await sb.from('profiles').select('minecraft_nick').eq('id', user.id).maybeSingle()
         if (data?.minecraft_nick) {
+            pendingSignupNickRef.current = null   // DB confirms the nick; ref no longer needed
             setNick(data.minecraft_nick)
             emit({ user, nick: data.minecraft_nick })
             // If the user just authed through the modal, hand them off to
@@ -339,6 +346,13 @@ export function AuthWidget({ supabaseUrl, supabaseKey, lang, launcherProtocol, m
             if (opts.freshSignIn && openRef.current) {
                 setView('welcome')
             }
+        } else if (pendingSignupNickRef.current) {
+            // Just signed up with a nick; the profiles upsert is in flight.
+            // Trust the chosen nick instead of flashing the setnick screen.
+            const pending = pendingSignupNickRef.current
+            setNick(pending)
+            emit({ user, nick: pending })
+            if (opts.freshSignIn && openRef.current) setView('welcome')
         } else {
             setNick(null)
             setView('setnick')
@@ -368,6 +382,7 @@ export function AuthWidget({ supabaseUrl, supabaseKey, lang, launcherProtocol, m
     }, [sb])
 
     async function handleSignOut() {
+        pendingSignupNickRef.current = null
         await sb?.auth.signOut()
         setMenuOpen(false)
     }
@@ -433,7 +448,7 @@ export function AuthWidget({ supabaseUrl, supabaseKey, lang, launcherProtocol, m
 
             {open && (
                 <Modal onClose={() => setOpen(false)} embedded={inLauncher}>
-                    {view === 'auth' && <AuthForm sb={sb} t={t} inLauncher={inLauncher} supabaseUrl={supabaseUrl ?? ''} />}
+                    {view === 'auth' && <AuthForm sb={sb} t={t} inLauncher={inLauncher} supabaseUrl={supabaseUrl ?? ''} pendingSignupNickRef={pendingSignupNickRef} />}
                     {view === 'setnick' && session && (
                         <SetNickForm
                             sb={sb}
@@ -484,7 +499,7 @@ export function AuthWidget({ supabaseUrl, supabaseKey, lang, launcherProtocol, m
     )
 }
 
-function AuthForm({ sb, t, inLauncher, supabaseUrl }: { sb: SupabaseClient; t: T; inLauncher: boolean; supabaseUrl: string }){
+function AuthForm({ sb, t, inLauncher, supabaseUrl, pendingSignupNickRef }: { sb: SupabaseClient; t: T; inLauncher: boolean; supabaseUrl: string; pendingSignupNickRef: { current: string | null } }){
     const [stage, setStage] = useState<Stage>('start')
     const [pane, setPane] = useState<'signin' | 'signup'>('signin')
 
@@ -532,12 +547,16 @@ function AuthForm({ sb, t, inLauncher, supabaseUrl }: { sb: SupabaseClient; t: T
         try {
             const { data: taken } = await sb.from('profiles').select('id').eq('minecraft_nick', suNick).maybeSingle()
             if(taken){ setSuError(t.nickTakenErr); return }
+            // Remember the nick so the SIGNED_IN handler (which fires the
+            // instant signUp resolves, before the upsert below commits)
+            // doesn't bounce the user to the setnick screen.
+            pendingSignupNickRef.current = suNick
             const { data, error } = await sb.auth.signUp({ email: suEmail.trim(), password: suPassword })
-            if(error){ setSuError(error.message); return }
+            if(error){ pendingSignupNickRef.current = null; setSuError(error.message); return }
             const userId = data.user?.id
-            if(!userId){ setSuError('No user'); return }
+            if(!userId){ pendingSignupNickRef.current = null; setSuError('No user'); return }
             const { error: pErr } = await sb.from('profiles').upsert({ id: userId, minecraft_nick: suNick })
-            if(pErr) setSuError(pErr.message)
+            if(pErr){ pendingSignupNickRef.current = null; setSuError(pErr.message) }
         } finally { setSuBusy(false) }
     }
 
