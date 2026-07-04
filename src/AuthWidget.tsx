@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'preact/hooks'
 import { createPortal } from 'preact/compat'
 import { type Session, type SupabaseClient, type User } from '@supabase/supabase-js'
-import { obtainSharedClient, pickLocale } from '@anubis/widget-core'
+import { obtainSharedClient, pickLocale } from '@anubis/core'
 
 
 type Locale = 'en' | 'ru' | 'uk' | 'de' | 'pl'
