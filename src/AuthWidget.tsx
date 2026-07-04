@@ -1,36 +1,8 @@
 import { useEffect, useState, useRef } from 'preact/hooks'
 import { createPortal } from 'preact/compat'
-import { createClient, type Session, type SupabaseClient, type User } from '@supabase/supabase-js'
+import { type Session, type SupabaseClient, type User } from '@supabase/supabase-js'
+import { obtainSharedClient, pickLocale } from '@anubis/widget-core'
 
-// Two Supabase clients on the same page race on refresh-token rotation:
-// the first refresh invalidates the cached refresh_token; whoever fires
-// next gets `invalid_refresh_token`, clears the session and the user
-// suddenly looks signed out in one of the widgets. The cabinet widget
-// uses the same convention — first widget on the page either gets the
-// host's client (launcher exposes its singleton on this event) or
-// becomes the provider for siblings that mount after.
-function obtainSharedClient(url?: string, key?: string): SupabaseClient | null {
-    if (typeof document === 'undefined') {
-        return url && key ? createClient(url, key, { auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true } }) : null
-    }
-    const ev = new CustomEvent('anubis-need-supabase', {
-        detail: {} as { client?: SupabaseClient },
-        bubbles: true,
-        composed: true,
-    })
-    document.dispatchEvent(ev)
-    const provided = (ev.detail as { client?: SupabaseClient }).client
-    if (provided) return provided
-    if (!url || !key) return null
-    const fresh = createClient(url, key, {
-        auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true },
-    })
-    document.addEventListener('anubis-need-supabase', (e) => {
-        const d = (e as CustomEvent).detail as { client?: SupabaseClient }
-        if (d && !d.client) d.client = fresh
-    })
-    return fresh
-}
 
 type Locale = 'en' | 'ru' | 'uk' | 'de' | 'pl'
 type T = ReturnType<typeof copyFor>
@@ -235,8 +207,7 @@ const COPY: Record<Locale, Record<string, string>> = {
 }
 
 function copyFor(lang?: string){
-    const code = ((lang || 'en').slice(0, 2).toLowerCase()) as Locale
-    return code in COPY ? COPY[code] : COPY.en
+    return pickLocale(COPY, lang)
 }
 
 // Drop the hash before handing the URL to Supabase — otherwise its appended
